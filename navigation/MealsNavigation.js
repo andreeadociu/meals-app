@@ -5,7 +5,7 @@ import CategoriesScreen from '../screens/CategoriesScreen';
 import CategoryMealsScreen from '../screens/CategoryMealsScreen';
 import MealDetailScreen from '../screens/MealDetailScreen';
 
-const MealsNavigator = createStackNavigator({
+const MealsNavigation = createStackNavigator({
     Categories: CategoriesScreen, //pointer la screen
     CategoryMeals: {
         screen: CategoryMealsScreen, //poti sa il setezi asa pt additional configurations dar inca nu e nevoie

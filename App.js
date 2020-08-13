@@ -4,6 +4,9 @@ import { StyleSheet, Text, View } from 'react-native';
 import * as Font from 'expo-font';
 import { AppLoading } from 'expo'; //ne asiguram ca pastram splash screenul pana se incarca tot
 import MealsNavigation from './navigation/MealsNavigation';
+import { enableScreens } from 'react-native-screens';
+
+enableScreens();
 
 const fetchFonts = () => {
   Font.loadAsync({

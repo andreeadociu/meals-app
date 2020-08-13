@@ -1,12 +1,44 @@
 import React from 'react';
-import { View, Text, StyleSheet } from 'react-native';
+import { View, Text, StyleSheet, Button, FlatList, TouchableOpacity, Platform } from 'react-native';
+import { CATEGORIES } from '../data/dummy-data';
+import colors from '../constants/colors';
+
+//in metoda navigate se ia parametrul identifier-ul (pointerul) screenului care tr incarcat
+
 
 const CategoriesScreen = props => {
+  //console.log(props);//obiectul navigate care are props: functii mostly printre care si navigate, getParam, goBack etc.
+  const renderGridItem = itemData => {
     return (
-      <View style={styles.screen}>
-        <Text>The Categories Screen</Text>
-      </View>
+      <TouchableOpacity
+        style={styles.gridItem}
+        onPress={() => {
+          props.navigation.navigate({
+            routeName: 'CategoryMeals',
+            params: {
+              categoryId: itemData.item.id
+            }
+          })
+        }}>
+        <View >
+          <Text>{itemData.item.title}</Text>
+        </View>
+      </TouchableOpacity>
     );
+  }
+
+    return (
+      <FlatList
+        data={CATEGORIES}
+        renderItem={renderGridItem}
+        keyExtractor={(item, index) => item.id}
+        numColumns={2}
+      />
+    );
+};
+
+CategoriesScreen.navigationOptions = {
+  headerTitle: 'Meal Categories', //titlul
 };
 
 const styles = StyleSheet.create({
@@ -15,6 +47,11 @@ const styles = StyleSheet.create({
       justifyContent: 'center',
       alignItems: 'center',
     },
+    gridItem: {
+      flex: 1,
+      margin: 15,
+      height: 150,
+    }
 });
 
 export default CategoriesScreen;

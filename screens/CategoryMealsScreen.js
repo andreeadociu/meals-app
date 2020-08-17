@@ -1,41 +1,17 @@
 import React from 'react';
-import { View, Text, StyleSheet, Button, Platform, FlatList } from 'react-native';
 import { CATEGORIES, MEALS } from '../data/dummy-data';
-import MealItem from '../components/MealItem';
+import MealList from '../components/MealList';
 
 const CategoryMealsScreen = props => {
     const catId = props.navigation.getParam('categoryId'); //extrage un param la navigare din screenul anterior
     const displayedMeals = MEALS.filter(meal => meal.categoryIds.indexOf(catId) >= 0) //adica daca mealul are catId respectiv
 
-    const renderMealItem = itemData => {
-        return (
-            <MealItem
-               title={itemData.item.title}
-               duration={itemData.item.duration}
-               complexity={itemData.item.complexity.toUpperCase()}
-               affordability={itemData.item.affordability.toUpperCase()}
-               image={itemData.item.imageUrl}
-               onSelectMeal={() => {
-                   props.navigation.navigate(
-                       {routeName: 'MealDetail',
-                        params: {
-                           mealId: itemData.item.id}
-                        },
-                   )
-               }}
-            />
-        );
-    };
-
+//ii pot transfera componentei navigation param pentru ca aici exista (e screen)
     return (
-        <View style={styles.screen}>
-          <FlatList
-            renderItem={renderMealItem}
-            data={displayedMeals}
-            keyExtractor={item => item.id}
-            style={{width: '100%'}}
-          />
-        </View>
+       <MealList
+         listData={displayedMeals}
+         navigation={props.navigation}
+       />
     );
 };
 
@@ -46,13 +22,5 @@ CategoryMealsScreen.navigationOptions = (navigationData) => {
         headerTitle: selectedCategory.title,
     };
 };
-
-const styles = StyleSheet.create({
-    screen: {
-      flex: 1,
-      justifyContent: 'center',
-      alignItems: 'center',
-    },
-});
 
 export default CategoryMealsScreen;

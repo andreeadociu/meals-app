@@ -1,8 +1,7 @@
 import React from 'react';
 import { View, Text, StyleSheet, Button, FlatList, TouchableOpacity, Platform } from 'react-native';
 import { CATEGORIES } from '../data/dummy-data';
-import colors from '../constants/colors';
-
+import CategoryGridTile from '../components/CategoryGridTile';
 //in metoda navigate se ia parametrul identifier-ul (pointerul) screenului care tr incarcat
 
 
@@ -10,20 +9,18 @@ const CategoriesScreen = props => {
   //console.log(props);//obiectul navigate care are props: functii mostly printre care si navigate, getParam, goBack etc.
   const renderGridItem = itemData => {
     return (
-      <TouchableOpacity
-        style={styles.gridItem}
-        onPress={() => {
+      <CategoryGridTile
+        title={itemData.item.title}
+        color={itemData.item.color}
+        onSelect={() => {
           props.navigation.navigate({
             routeName: 'CategoryMeals',
             params: {
               categoryId: itemData.item.id
             }
           })
-        }}>
-        <View >
-          <Text>{itemData.item.title}</Text>
-        </View>
-      </TouchableOpacity>
+        }}
+      />
     );
   }
 

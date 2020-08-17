@@ -35,6 +35,7 @@ const styles = StyleSheet.create({
         width: '100%',
         backgroundColor: '#f5f5f5',
         borderRadius: 10,
+        marginVertical: 10,
         overflow: 'hidden',
     },
     mealHeader: {
@@ -52,7 +53,7 @@ const styles = StyleSheet.create({
         justifyContent: 'flex-end',
     },
     title: {
-        fontFamily: 'open-sans-bold',
+        //fontFamily: 'open-sans-bold',
         fontSize: 22,
         color: 'white',
         backgroundColor: 'rgba(0,0,0,0.5)',

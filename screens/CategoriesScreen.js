@@ -3,7 +3,8 @@ import { View, Text, StyleSheet, Button, FlatList, TouchableOpacity, Platform } 
 import { CATEGORIES } from '../data/dummy-data';
 import CategoryGridTile from '../components/CategoryGridTile';
 //in metoda navigate se ia parametrul identifier-ul (pointerul) screenului care tr incarcat
-
+import { HeaderButtons, Item } from 'react-navigation-header-buttons';
+import HeaderButton from '../components/HeaderButton';
 
 const CategoriesScreen = props => {
   //console.log(props);//obiectul navigate care are props: functii mostly printre care si navigate, getParam, goBack etc.
@@ -34,8 +35,19 @@ const CategoriesScreen = props => {
     );
 };
 
-CategoriesScreen.navigationOptions = {
-  headerTitle: 'Meal Categories', //titlul
+CategoriesScreen.navigationOptions = navigationData => {
+  return {
+    headerTitle: 'Meal Categories', //titlul
+    headerLeft: () => (
+      <HeaderButtons HeaderButtonComponent={HeaderButton}>
+        <Item
+          title='Menu'
+          iconName='ios-menu'
+          onPress={() => {navigationData.toggleDrawer();}}
+        />
+      </HeaderButtons>
+    ),
+  }
 };
 
 const styles = StyleSheet.create({

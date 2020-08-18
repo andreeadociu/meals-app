@@ -1,10 +1,12 @@
 import React from 'react';
 import { createStackNavigator } from 'react-navigation-stack';
+import { createDrawerNavigator } from 'react-navigation-drawer';
 import { createBottomTabNavigator } from 'react-navigation-tabs';
 import { createMaterialBottomTabNavigator } from 'react-navigation-material-bottom-tabs';
 import { createAppContainer } from 'react-navigation';
 import { Platform } from 'react-native';
 import CategoriesScreen from '../screens/CategoriesScreen';
+import FiltersScreen from '../screens/CategoriesScreen';
 import CategoryMealsScreen from '../screens/CategoryMealsScreen';
 import MealDetailScreen from '../screens/MealDetailScreen';
 import FavoritesScreen from '../screens/FavoritesScreen';
@@ -73,6 +75,34 @@ const MealsFavTabNavigation =
         tabBarOptions: {
         activeTintColor: colors.accentColor, //culoarea de la Ionicons vine de aici
         },
+    });
+
+    const FiltersNavigator = createStackNavigator({
+        Filters: FiltersScreen,
+    }, {
+        navigationOptions: {
+            drawer: 'Filters!',
+        },
+        defaultNavigationOptions: defaultOptions,
+    });
+
+    const MainNavigator = createDrawerNavigator({
+        MealsFavs: {
+            screen: MealsFavTabNavigation,
+            navigationOptions: {
+                drawerLabel: 'Meals',
+            }
+        },
+        Filters: {
+            screen: FiltersNavigator
+        },
+    }, {
+        contentOptions: {
+            activeTintColor: colors.accentColor,
+            labelStyle: {
+                fontFamily: 'open-sans-bold',
+            },
+        }
     });
 
 export default createAppContainer(MealsFavTabNavigation); //wrap in createAppContainer

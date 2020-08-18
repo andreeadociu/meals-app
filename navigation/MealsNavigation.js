@@ -1,19 +1,26 @@
 import React from 'react';
+import { Text, Platform } from 'react-native';
 import { createStackNavigator } from 'react-navigation-stack';
 import { createBottomTabNavigator } from 'react-navigation-tabs';
 import { createMaterialBottomTabNavigator } from 'react-navigation-material-bottom-tabs';
 import { createAppContainer } from 'react-navigation';
-import { Platform } from 'react-native';
 import CategoriesScreen from '../screens/CategoriesScreen';
 import CategoryMealsScreen from '../screens/CategoryMealsScreen';
 import MealDetailScreen from '../screens/MealDetailScreen';
 import FavoritesScreen from '../screens/FavoritesScreen';
+import FiltersScreen from '../screens/FiltersScreen';
 import colors from '../constants/colors';
 import { Ionicons } from '@expo/vector-icons';
 
 const defaultOptions = {
     headerStyle: { //stilul headerului
         backgroundColor: Platform.OS === 'android' ? colors.primaryColor : colors.accentColor,
+    },
+    headerTitleStyle: {
+        fontFamily: 'open-sans-bold',
+    },
+    headerBackTitleStyle: { //se refera la butonul de back din header
+        fontFamily: 'open-sans',
     },
     headerTintColor: 'white', //culoarea titlului
     headerTitle: 'Screen',
@@ -42,6 +49,15 @@ const FavNavigation = createStackNavigator({
     }
 );
 
+const FiltersNavigator = createStackNavigator({
+    Filters: FiltersScreen,
+}, {
+    navigationOptions: {
+        drawer: 'Filters!',
+    },
+    defaultNavigationOptions: defaultOptions,
+});
+
 const tabScreenConfig =
     {
         Meals: {screen: MealsNavigation, navigationOptions: {
@@ -49,6 +65,7 @@ const tabScreenConfig =
                 return <Ionicons name='ios-restaurant' size={25} color={tabInfo.tintColor} />
             },
             tabBarColor: 'white', //doar pe android
+            tabBarLabel: Platform.OS === 'android' ? <Text style={{fontFamily: 'open-sans'}}></Text> : 'Meals!', //pot folosi si o comp si un string
         }}, //adica pointeaza catre const de mai sus
         Favorites: {screen: FavNavigation, navigationOptions: {
             tabBarIcon: (tabInfo) => {
@@ -56,6 +73,12 @@ const tabScreenConfig =
             },
             tabBarColor: 'white', //doar pe android
             tabBarLabel: 'Favorites!', //poate sa nu existe si atunci by default o sa fie numele pointerului (Favorites)
+        }},
+        Filters: {screen: FiltersNavigator, navigationOptions: {
+            tabBarIcon: (tabInfo) => {
+                return <Ionicons name='ios-menu' size={25} color={tabInfo.tintColor} />
+            },
+            tabBarColor: 'white', //doar pe android
         }},
     };
 
@@ -71,7 +94,10 @@ const MealsFavTabNavigation =
     })
     : createBottomTabNavigator(tabScreenConfig, {
         tabBarOptions: {
-        activeTintColor: colors.accentColor, //culoarea de la Ionicons vine de aici
+          labelStyle: {
+            fontFamily: 'open-sans-bold',
+          },
+          activeTintColor: colors.accentColor, //culoarea de la Ionicons vine de aici
         },
     });
 

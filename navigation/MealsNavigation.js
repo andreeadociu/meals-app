@@ -52,9 +52,9 @@ const FavNavigation = createStackNavigator({
 const FiltersNavigator = createStackNavigator({
     Filters: FiltersScreen,
 }, {
-    navigationOptions: {
-        drawer: 'Filters!',
-    },
+    // navigationOptions: {
+    //     drawer: 'Filters!',
+    // },
     defaultNavigationOptions: defaultOptions,
 });
 
